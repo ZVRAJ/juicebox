@@ -15,6 +15,7 @@ module.exports = {
   createTags,
   addTagsToPost,
   getPostsByTagName,
+  getAllTags,
 };
 
 ///////////
@@ -294,6 +295,17 @@ async function getPostsByTagName(tagName) {
 //////////
 /* TAGS */
 //////////
+
+async function getAllTags() {
+  try {
+    const { rows: tags } = await client.query(`
+  select * from tags; `);
+    return tags;
+  } catch (err) {
+    throw err;
+}
+
+}
 
 // tagList: ['#tagOne', '#tagTwo', ...]
 async function createTags(tagList) {
