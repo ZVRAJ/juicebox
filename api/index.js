@@ -35,6 +35,13 @@ apiRouter.use(async (req, res, next) => {
       if (id) {
         req.user = await getUserById(id);
         next();
+      } 
+       // this is what we were missing -- need to move things along if an id isn't found!
+        else {
+        next({
+          name: 'AuthorizationError',
+          message: 'Authorization token is malformed',
+        });
       }
     } catch ({ name, message }) {
       next({ name, message });
